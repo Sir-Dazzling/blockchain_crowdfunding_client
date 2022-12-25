@@ -1,3 +1,4 @@
+import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import nProgress from "nprogress";
@@ -21,5 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
     };
   }, [router.events]);
 
-  return <Component {...pageProps} />;
+  return (
+    <ThirdwebProvider desiredChainId={ChainId.Goerli}>
+      <Component {...pageProps} />
+    </ThirdwebProvider>
+  );
 }
