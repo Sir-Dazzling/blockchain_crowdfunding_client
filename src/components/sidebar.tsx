@@ -1,9 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import { NavIconProps, SidebarProps } from "../interfaces/general";
-import navlinks from "../helpers/navlinks";
-import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import LogoIcon from "../../public/svgs/logo.svg";
+import SunIcon from "../../public/svgs/sun.svg";
+import navlinks from "../helpers/navlinks";
+import { NavIconProps, SidebarProps } from "../interfaces/general";
+import { generalAppSelector, setActiveLink } from "../redux-store/reducers/general";
 
 const NavIcon = ({ styles, name, imgUri, disabled, handleClick, activeLink }: NavIconProps) => (
   <div
@@ -12,21 +16,22 @@ const NavIcon = ({ styles, name, imgUri, disabled, handleClick, activeLink }: Na
     } flex justify-center items-center ${!disabled && "cursor-pointer"} ${styles}`}
     onClick={handleClick}>
     {!activeLink ? (
-      <img src={imgUri} alt="logo" className="w-1/2 h-1.2" />
+      <Image src={imgUri} alt="logo" className="w-1/2 h-1.2" />
     ) : (
-      <img src={imgUri} alt="logo" className={`w-1/2 h-1.2 ${activeLink !== name && "grayscale"}`} />
+      <Image src={imgUri} alt="logo" className={`w-1/2 h-1.2 ${activeLink !== name && "grayscale"}`} />
     )}
   </div>
 );
 
 const SideBar: React.FC<SidebarProps> = () => {
-  const [activeLink, setActiveLink] = useState("home");
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { activeLink } = useSelector(generalAppSelector);
 
   return (
     <div className="flex justify-between items-center flex-col sticky top-5 h-[93vh]">
       <Link href="/">
-        <NavIcon styles="w-[52px] h-[52px] bg-[#2cf32]" imgUri="/svgs/logo.svg" />
+        <NavIcon styles="w-[52px] h-[52px] bg-[#2c2f32]" imgUri={LogoIcon} />
       </Link>
 
       <div className="flex-1 flex flex-col justify-between items-center bg-[#1c1c24] rounded-[20px] w-[76px] py-4 mt-12">
@@ -38,15 +43,14 @@ const SideBar: React.FC<SidebarProps> = () => {
               activeLink={activeLink}
               handleClick={() => {
                 if (!item.disabled) {
-                  setActiveLink(item.name);
+                  dispatch(setActiveLink({ data: item.name }));
                   router.push(item?.link as string);
                 }
               }}
             />
           ))}
         </div>
-
-        <NavIcon styles="bg-[#1c1c24] shadow-secondary" imgUri="/svgs/sun.svg" />
+        <NavIcon styles="bg-[#1c1c24] shadow-secondary" imgUri={SunIcon} />
       </div>
     </div>
   );

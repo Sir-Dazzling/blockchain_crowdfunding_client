@@ -1,38 +1,44 @@
 import { NavLink } from "../interfaces/general";
 import PAGES from "./page-names";
+import DashboardIcon from "../../public/svgs/dashboard.svg";
+import CampaignIcon from "../../public/svgs/create-campaign.svg";
+import PaymentIcon from "../../public/svgs/payment.svg";
+import WithdrawIcon from "../../public/svgs/withdraw.svg";
+import ProfileIcon from "../../public/svgs/profile.svg";
+import LogoutIcon from "../../public/svgs/logout.svg";
 
 const NavLinks: NavLink[] = [
   {
     name: "home",
-    imgUri: "/svgs/dashboard.svg",
+    imgUri: DashboardIcon,
     link: PAGES.HOME,
     disabled: false,
   },
   {
-    name: "campaign",
-    imgUri: "/svgs/create-campaign.svg",
+    name: "create-campaign",
+    imgUri: CampaignIcon,
     link: PAGES.CREATE_CAMPAIGN,
     disabled: false,
   },
   {
     name: "payment",
-    imgUri: "/svgs/payment.svg",
+    imgUri: PaymentIcon,
     disabled: true,
   },
   {
     name: "withdraw",
-    imgUri: "/svgs/withdraw.svg",
+    imgUri: WithdrawIcon,
     link: PAGES.WITHDRAW,
     disabled: false,
   },
   {
     name: "profile",
-    imgUri: "/svgs/profile.svg",
+    imgUri: ProfileIcon,
     disabled: false,
   },
   {
     name: "logout",
-    imgUri: "/svgs/logout.svg",
+    imgUri: LogoutIcon,
     disabled: true,
   },
 ];

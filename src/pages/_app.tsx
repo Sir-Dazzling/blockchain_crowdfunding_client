@@ -2,10 +2,14 @@ import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import nProgress from "nprogress";
+import "nprogress/nprogress.css";
 import { useEffect } from "react";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store, wrapper } from "../redux-store";
 import "../styles/globals.css";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
@@ -23,8 +27,14 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   return (
-    <ThirdwebProvider desiredChainId={ChainId.Goerli}>
-      <Component {...pageProps} />
-    </ThirdwebProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThirdwebProvider desiredChainId={ChainId.Goerli}>
+          <Component {...pageProps} />
+        </ThirdwebProvider>
+      </PersistGate>
+    </Provider>
   );
 }
+
+export default wrapper.withRedux(App);

@@ -28,3 +28,26 @@ export interface NavIconProps {
 export interface SidebarProps {}
 
 export interface NavbarProps {}
+
+export interface CustomButtonProps {
+  type: "button" | "reset" | "submit";
+  title: string;
+  action: () => void;
+  styles?: string;
+}
+
+export interface PayloadType {
+  payload: {
+    data?: [] | any;
+    message?: string | any;
+    error?: any;
+    action?: () => void;
+  };
+}
+
+export type ActiveLinkTypes = "home" | "create-campaign" | "payment" | "withdraw" | "profile" | "logout";
+
+export interface GeneralAppState {
+  mobileNavBarOpen: boolean;
+  activeLink: ActiveLinkTypes;
+}
