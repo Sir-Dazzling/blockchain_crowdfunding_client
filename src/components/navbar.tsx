@@ -10,13 +10,13 @@ import PAGES from "../helpers/page-names";
 import { NavbarProps } from "../interfaces/general";
 import { generalAppSelector, setActiveLink, toggleMobileNavbar } from "../redux-store/reducers/general";
 import CustomButton from "./custom-button";
+import { useConnectWallet } from "../helpers/api-hooks/useSmartContract";
 
 const NavBar: React.FC<NavbarProps> = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { mobileNavBarOpen, activeLink } = useSelector(generalAppSelector);
-
-  const address = "0x";
+  const { address, connect } = useConnectWallet();
 
   return (
     <nav className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
@@ -37,11 +37,11 @@ const NavBar: React.FC<NavbarProps> = () => {
             if (address) {
               router.push(PAGES.CREATE_CAMPAIGN);
             } else {
-              // TODO: connect()
+              connect();
             }
           }}
           title={address ? "Create a campaign" : "Connect"}
-          styles={address ? "bg-[#1dc071]" : "bg-[#8c8c8c]"}
+          styles={address ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
         />
 
         <Link href={PAGES.PROFILE}>
@@ -72,7 +72,6 @@ const NavBar: React.FC<NavbarProps> = () => {
                 key={index}
                 className={`flex p-4 ${activeLink === item.name && "bg-[#3a3a43]"} items-center cursor-pointer`}
                 onClick={() => {
-                  // setActiveLink(item.name);
                   dispatch(setActiveLink({ data: item.name }));
                   dispatch(toggleMobileNavbar({ data: false }));
                   router.push(item?.link as string);
@@ -99,7 +98,7 @@ const NavBar: React.FC<NavbarProps> = () => {
                 if (address) {
                   router.push(PAGES.CREATE_CAMPAIGN);
                 } else {
-                  // TODO: connect()
+                  connect();
                 }
               }}
               title={address ? "Create a campaign" : "Connect"}
