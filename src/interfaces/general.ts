@@ -32,8 +32,18 @@ export interface NavbarProps {}
 export interface CustomButtonProps {
   type: "button" | "reset" | "submit";
   title: string;
-  action: () => void;
+  action: (e: React.FormEvent<HTMLFormElement>) => void;
   styles?: string;
+}
+
+export interface CustomInputProps {
+  label?: string;
+  placeholder: string;
+  type?: string;
+  value: string | number;
+  action: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  isTextArea?: boolean;
+  name: string;
 }
 
 export interface PayloadType {

@@ -35,7 +35,7 @@ const makeStore = ({ isServer }: { isServer: boolean }) => {
 
     const persistConfig = {
       key: "nextjs",
-      whitelist: ["general"], // only indicated slices will be persisted, add other reducers if needed
+      whitelist: [], // only indicated slices will be persisted, add other reducers if needed
       storage, // if needed, use a safer storage
     };
 
