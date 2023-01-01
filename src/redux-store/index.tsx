@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import campaignSlice from "./reducers/campaign";
 import generalAppSlice from "./reducers/general";
 
 const peristConfig = {
@@ -11,6 +12,7 @@ const peristConfig = {
 
 const reducers = combineReducers({
   general: generalAppSlice,
+  campaign: campaignSlice,
 });
 
 const persistedReducer = persistReducer(peristConfig, reducers);

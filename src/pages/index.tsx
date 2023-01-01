@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import DisplayCampaigns from "../components/campaign/display-campaigns";
 import Layout from "../components/layout";
 import { useConnectWallet, useGetCampaigns } from "../helpers/api-hooks/useSmartContract";
-import DisplayCampaigns from "../components/campaign/display-campaigns";
 
 export default function Home() {
   const { address, contract } = useConnectWallet();

@@ -35,6 +35,7 @@ const NavLinks: NavLink[] = [
     name: "profile",
     imgUri: ProfileIcon,
     disabled: false,
+    link: PAGES.PROFILE,
   },
   {
     name: "logout",

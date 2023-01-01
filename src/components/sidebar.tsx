@@ -43,8 +43,8 @@ const SideBar: React.FC<SidebarProps> = () => {
               activeLink={activeLink}
               handleClick={() => {
                 if (!item.disabled) {
-                  dispatch(setActiveLink({ data: item.name }));
                   router.push(item?.link as string);
+                  dispatch(setActiveLink({ data: item.name }));
                 }
               }}
             />

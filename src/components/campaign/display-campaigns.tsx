@@ -4,11 +4,15 @@ import { useRouter } from "next/router";
 import CustomLoader from "../custom-loader";
 import FundCard from "./fund-card";
 import PAGES from "../../helpers/page-names";
+import { useDispatch } from "react-redux";
+import { setActiveCampaign } from "../../redux-store/reducers/campaign";
 
 const DisplayCampaigns: React.FC<DisplayCampaignsProps> = ({ campaigns, isLoading, title }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleNavigate = (campaign: ParsedCampaignsType) => {
+    dispatch(setActiveCampaign({ data: campaign }));
     router.push(`${PAGES.CAMPAIGN_DETAILS}/${campaign.title}`);
   };
 

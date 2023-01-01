@@ -40,3 +40,7 @@ export interface FundCardProps {
   pId: number;
   action: () => void;
 }
+
+export interface CampaignState {
+  activeCampaign: ParsedCampaignsType | null;
+}
