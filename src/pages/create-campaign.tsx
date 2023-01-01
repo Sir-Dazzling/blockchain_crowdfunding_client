@@ -110,12 +110,9 @@ const Form = () => {
 };
 
 export default function CreateCampaign() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   return (
     <Layout title="CrowdFunding | Create Campaign">
       <div className="bg-[#1c1c24] flex flex-col justify-center items-center rounded-[10px] sm:p-10 p-4">
-        {isLoading && "Loader..."}
         <div className="flex justify-center items-center p-4 sm:min-w-[380px] bg-[#313143] rounded-[10px]">
           <h1 className="font-epilogue font-bold sm:text-[25px] text-lg leading-[38px] text-white">Start a Campaign</h1>
         </div>

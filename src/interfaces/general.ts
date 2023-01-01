@@ -46,6 +46,10 @@ export interface CustomInputProps {
   name: string;
 }
 
+export interface CustomLoaderProps {
+  message: string;
+}
+
 export interface PayloadType {
   payload: {
     data?: [] | any;

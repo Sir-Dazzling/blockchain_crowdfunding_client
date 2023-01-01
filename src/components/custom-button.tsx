@@ -6,7 +6,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({ action, title, type, styles
     <button
       type={type}
       className={`font-epilogue font-semibold text-base leading-[26px] text-white min-h-[52px] px-4 rounded-[10px] ${styles}`}
-      onClick={action}>
+      onClick={action as any}>
       {title}
     </button>
   );

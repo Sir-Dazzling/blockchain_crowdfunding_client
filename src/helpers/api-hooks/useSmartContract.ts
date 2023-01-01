@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { ethers } from "ethers";
 import { useDispatch } from "react-redux";
 import { RequiredParam, useAddress, useContract, useContractWrite, useMetamask } from "@thirdweb-dev/react";
 import { ValidContractInstance } from "@thirdweb-dev/sdk";
@@ -38,4 +40,42 @@ export const usePublishCampaign = (contract: RequiredParam<ValidContractInstance
   };
 
   return { publishCampaign, isLoading };
+};
+
+export const useGetCampaigns = (address: string, contract: RequiredParam<ValidContractInstance>) => {
+  const [campaigns, setCampaigns] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<unknown | string>(null);
+
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const result = await contract?.call("getCampaigns");
+        const parsedCampaigns = result.map((campaign: any, index: number) => ({
+          owner: campaign.owner,
+          title: campaign.title,
+          description: campaign.description,
+          target: ethers.utils.formatEther(campaign.target.toString()),
+          deadline: campaign.deadline.toNumber(),
+          amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
+          imageUri: campaign.imageUri,
+          pId: index,
+        }));
+        setCampaigns(parsedCampaigns);
+      } catch (error) {
+        setError("Something went wrong trying to fetch campaigns, try again later!");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (contract) fetchCampaigns();
+
+    return () => {
+      setIsLoading(true);
+      setCampaigns([]);
+    };
+  }, [address, contract]);
+
+  return { isLoading, campaigns, error };
 };
